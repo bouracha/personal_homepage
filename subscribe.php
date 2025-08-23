@@ -54,17 +54,38 @@ $csvData = [
     $affiliation
 ];
 
-// CSV file path
-$csvFile = __DIR__ . '/data/mailing_list.csv';
+// Try multiple approaches for data storage
+$possibleDirs = [
+    __DIR__ . '/data',
+    __DIR__,  // Current directory as fallback
+    sys_get_temp_dir() . '/mailing_list_data'  // System temp as last resort
+];
 
-// Ensure data directory exists
-$dataDir = __DIR__ . '/data';
-if (!is_dir($dataDir)) {
-    if (!mkdir($dataDir, 0755, true)) {
-        http_response_code(500);
-        echo json_encode(['success' => false, 'message' => 'Unable to create data directory']);
-        exit;
+$dataDir = null;
+$csvFile = null;
+
+foreach ($possibleDirs as $dir) {
+    if ($dir === __DIR__) {
+        // If using current directory, put CSV directly there
+        $csvFile = $dir . '/mailing_list.csv';
+        $dataDir = $dir;
+        break;
+    } else {
+        // Try to create/access the directory
+        if (is_dir($dir) || @mkdir($dir, 0755, true)) {
+            if (is_writable($dir)) {
+                $csvFile = $dir . '/mailing_list.csv';
+                $dataDir = $dir;
+                break;
+            }
+        }
     }
+}
+
+if (!$dataDir || !$csvFile) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Unable to find writable directory for data storage']);
+    exit;
 }
 
 // Check if CSV file exists, if not create it with headers
@@ -97,7 +118,20 @@ if (file_put_contents($csvFile, $csvRow, FILE_APPEND | LOCK_EX) === false) {
 }
 
 // Set appropriate file permissions (readable by owner, not by others)
-chmod($csvFile, 0600);
+@chmod($csvFile, 0600);
+
+// If CSV is in main directory, create .htaccess to protect it
+if ($dataDir === __DIR__ && basename($csvFile) === 'mailing_list.csv') {
+    $htaccessFile = __DIR__ . '/.htaccess';
+    $htaccessRule = "\n# Protect mailing list CSV\n<Files \"mailing_list.csv\">\n    Deny from all\n</Files>\n";
+    
+    if (file_exists($htaccessFile)) {
+        $existingContent = file_get_contents($htaccessFile);
+        if (strpos($existingContent, 'mailing_list.csv') === false) {
+            file_put_contents($htaccessFile, $htaccessRule, FILE_APPEND);
+        }
+    }
+}
 
 // Success response
 echo json_encode([
