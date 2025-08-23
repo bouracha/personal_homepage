@@ -1,0 +1,2 @@
+# Protect data directory from direct web access
+Deny from all

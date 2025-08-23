@@ -133,9 +133,141 @@
 
     <p>Anthony holds a PhD in Machine Learning and Neuroscience from UCL (with visiting research at Harvard), an MSc in Machine Learning from UCL, an MSc in High Performance Computing from the University of Edinburgh, and a BA in Theoretical Physics from Trinity College Dublin.</p>
 
+    <h2 style="margin-top: 40px; color: #acaf2c;">Stay connected...</h2>
+    <p>Stay updated on my latest research, publications, and AI art projects.</p>
+    
+    <form id="mailingListForm" action="subscribe.php" method="POST" style="max-width: 500px; margin: 20px 0;">
+        <div style="margin-bottom: 15px;">
+            <label for="fullName" style="display: block; margin-bottom: 5px; font-weight: bold;">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" required 
+                   style="width: 100%; padding: 10px; border: 2px solid #ccc; border-radius: 4px; font-size: 16px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="email" style="display: block; margin-bottom: 5px; font-weight: bold;">Email Address *</label>
+            <input type="email" id="email" name="email" required 
+                   style="width: 100%; padding: 10px; border: 2px solid #ccc; border-radius: 4px; font-size: 16px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="interests" style="display: block; margin-bottom: 5px; font-weight: bold;">Research Interests (optional)</label>
+            <input type="text" id="interests" name="interests" placeholder="e.g., Machine Learning, AI Art, Creative AI"
+                   style="width: 100%; padding: 10px; border: 2px solid #ccc; border-radius: 4px; font-size: 16px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="affiliation" style="display: block; margin-bottom: 5px; font-weight: bold;">Affiliation (optional)</label>
+            <input type="text" id="affiliation" name="affiliation" placeholder="e.g., University, Company, Independent"
+                   style="width: 100%; padding: 10px; border: 2px solid #ccc; border-radius: 4px; font-size: 16px;">
+        </div>
+        
+        <!-- Honeypot for spam protection -->
+        <input type="text" name="website" style="display: none;">
+        
+        <button type="submit" 
+                style="background: #acaf2c; color: white; padding: 12px 30px; border: none; border-radius: 4px; 
+                       font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s;">
+            Subscribe
+        </button>
+        
+        <div id="formMessage" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+    </form>
+
   </div>
 
   <div id="footer"></div>
 </div>
+
+<script>
+document.getElementById('mailingListForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = this;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const messageDiv = document.getElementById('formMessage');
+    const formData = new FormData(form);
+    
+    // Disable submit button and show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subscribing...';
+    messageDiv.style.display = 'none';
+    
+    // Basic client-side validation
+    const email = formData.get('email');
+    const fullName = formData.get('fullName');
+    
+    if (!fullName || !email) {
+        showMessage('Please fill in all required fields.', 'error');
+        resetButton();
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        showMessage('Please enter a valid email address.', 'error');
+        resetButton();
+        return;
+    }
+    
+    // Convert FormData to URLSearchParams for easier server parsing
+    const urlParams = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+        urlParams.append(key, value);
+    }
+    
+    // Submit form via AJAX
+    fetch('subscribe.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: urlParams
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showMessage(data.message, 'success');
+            form.reset();
+        } else {
+            showMessage(data.message, 'error');
+        }
+        resetButton();
+    })
+    .catch(error => {
+        showMessage('An error occurred. Please try again later.', 'error');
+        resetButton();
+    });
+    
+    function showMessage(message, type) {
+        messageDiv.textContent = message;
+        messageDiv.style.display = 'block';
+        messageDiv.style.background = type === 'success' ? '#d4edda' : '#f8d7da';
+        messageDiv.style.color = type === 'success' ? '#155724' : '#721c24';
+        messageDiv.style.border = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+    }
+    
+    function resetButton() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Subscribe';
+    }
+    
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+});
+
+// Add hover effect to submit button
+document.querySelector('form button[type="submit"]').addEventListener('mouseenter', function() {
+    if (!this.disabled) {
+        this.style.background = '#9ba829';
+    }
+});
+
+document.querySelector('form button[type="submit"]').addEventListener('mouseleave', function() {
+    if (!this.disabled) {
+        this.style.background = '#acaf2c';
+    }
+});
+</script>
 </body>
 </html>
