@@ -1,5 +1,17 @@
 # Basic directory indexing - serve index.html when accessing directories
 DirectoryIndex index.html index.htm
 
+# Enable URL rewriting for clean URLs
+RewriteEngine On
+
+# Remove .html extension from URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)$ $1.html [NC,L]
+
+# Redirect .html URLs to clean URLs
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1? [NC,L,R=301]
+
 # Basic error handling
-ErrorDocument 404 /index.html
+ErrorDocument 404 /~bouracha/index.html
