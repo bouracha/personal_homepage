@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigation Link Test - Anthony Bourached</title>
+<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+<style>
+.test-section {
+    margin: 20px 0;
+    padding: 20px;
+    border: 2px solid #acaf2c;
+    border-radius: 5px;
+}
+.test-section h2 {
+    color: #acaf2c;
+    margin-top: 0;
+}
+.test-link {
+    display: inline-block;
+    margin: 5px 10px;
+    padding: 10px 15px;
+    background: #515244;
+    color: #acaf2c;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.test-link:hover {
+    background: #acaf2c;
+    color: #fff;
+}
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="banner">
+    <h1>Navigation Link Test</h1>
+    <h2>Testing All Links From All Pages</h2>
+    <p>Click links below to test navigation</p>
+  </div>
+  <div class="clear"></div>
+  
+  <div id="content">
+    <div class="test-section">
+        <h2>Main Navigation Links (from root)</h2>
+        <a href="index.html" class="test-link">Home</a>
+        <a href="portfolio/oxia-palus.html" class="test-link">Oxia Palus</a>
+        <a href="academic/index.html" class="test-link">Academic Work</a>
+        <a href="chess/index.html" class="test-link">Chess</a>
+        <a href="links.html" class="test-link">Links</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>From Academic Index (../)</h2>
+        <a href="../index.html" class="test-link">Home</a>
+        <a href="../portfolio/oxia-palus.html" class="test-link">Oxia Palus</a>
+        <a href="academic/index.html" class="test-link">Academic Work</a>
+        <a href="../chess/index.html" class="test-link">Chess</a>
+        <a href="../links.html" class="test-link">Links</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>From Trinity Pages (../../)</h2>
+        <a href="../../index.html" class="test-link">Home</a>
+        <a href="../../portfolio/oxia-palus.html" class="test-link">Oxia Palus</a>
+        <a href="../index.html" class="test-link">Academic Work</a>
+        <a href="../../chess/index.html" class="test-link">Chess</a>
+        <a href="../../links.html" class="test-link">Links</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>From Edinburgh Pages (../../../)</h2>
+        <a href="../../../index.html" class="test-link">Home</a>
+        <a href="../../../portfolio/oxia-palus.html" class="test-link">Oxia Palus</a>
+        <a href="../../index.html" class="test-link">Academic Work</a>
+        <a href="../../../chess/index.html" class="test-link">Chess</a>
+        <a href="../../../links.html" class="test-link">Links</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>Actual Trinity Page Links</h2>
+        <a href="academic/trinity/pns.html" class="test-link">PNS</a>
+        <a href="academic/trinity/physics_project.html" class="test-link">Physics Project</a>
+        <a href="academic/trinity/maths_project.html" class="test-link">Maths Project</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>Actual Edinburgh Page Links</h2>
+        <a href="academic/edinburgh/term1/programming_skills.html" class="test-link">Programming Skills</a>
+        <a href="academic/edinburgh/term1/message_passing_programming.html" class="test-link">Message Passing</a>
+        <a href="academic/edinburgh/term2/software_development.html" class="test-link">Software Development</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>Other Pages</h2>
+        <a href="academic/sohpc/sohpc.html" class="test-link">SoHPC</a>
+        <a href="portfolio/oxia-palus.html" class="test-link">Oxia Palus</a>
+        <a href="chess/index.html" class="test-link">Chess</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>Academic Profile Links</h2>
+        <a href="https://scholar.google.com/citations?user=ZEGIdAYAAAAJ&hl=en" class="test-link" target="_blank">Google Scholar</a>
+        <a href="https://profiles.ucl.ac.uk/74310-anthony-bourached" class="test-link" target="_blank">UCL Profile</a>
+        <a href="https://www.linkedin.com/in/anthony-bourached/" class="test-link" target="_blank">LinkedIn</a>
+        <a href="https://www.oxia-palus.com/" class="test-link" target="_blank">Oxia Palus</a>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+</div>
+</body>
+</html>
