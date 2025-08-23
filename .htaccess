@@ -7,13 +7,18 @@ RewriteEngine On
 # Redirect old CV.pdf direct access to homepage
 RewriteRule ^documents/CV\.pdf$ /~bouracha/ [R=301,L]
 
-# Remove .html extension from URLs
+# Don't rewrite PHP files - let them execute normally
+RewriteCond %{REQUEST_URI} !\.php$
+
+# Remove .html extension from URLs (only for non-PHP files)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !\.php$
 RewriteRule ^([^.]+)$ $1.html [NC,L]
 
-# Redirect .html URLs to clean URLs
+# Redirect .html URLs to clean URLs (but not PHP files)
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteCond %{REQUEST_URI} !\.php$
 RewriteRule ^ /%1? [NC,L,R=301]
 
 # Basic error handling
