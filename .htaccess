@@ -1,12 +1,5 @@
-# Enable directory indexing - serve index.html automatically
-DirectoryIndex index.html
+# Basic directory indexing - serve index.html when accessing directories
+DirectoryIndex index.html index.htm
 
-# Optional: Redirect index.html to clean URL
-RewriteEngine On
-RewriteCond %{THE_REQUEST} /([^/]+)/index\.html [NC]
-RewriteRule ^ /%1/ [R=301,L]
-
-# Remove trailing .html extension (optional)
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
+# Basic error handling
+ErrorDocument 404 /index.html
