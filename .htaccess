@@ -4,6 +4,9 @@ DirectoryIndex index.html index.htm
 # Enable URL rewriting for clean URLs
 RewriteEngine On
 
+# Redirect old CV.pdf direct access to homepage
+RewriteRule ^documents/CV\.pdf$ /~bouracha/ [R=301,L]
+
 # Remove .html extension from URLs
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
