@@ -282,33 +282,73 @@ blockquote ul li {
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
+	body {
+		font-size: 16px;
+		-webkit-text-size-adjust: 100%;
+		-ms-text-size-adjust: 100%;
+	}
+	
 	#container {
-		width: 100%;
+		width: 100% !important;
 		padding: 0 10px;
+		box-sizing: border-box;
 	}
 	
 	#content {
-		margin-left: 0;
-		margin-right: 0;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		width: 100%;
+		padding: 10px;
+		box-sizing: border-box;
 	}
 	
 	#sidebar, #sidebar-b {
-		float: none;
-		width: 100%;
+		float: none !important;
+		width: 100% !important;
 		margin-bottom: 20px;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
 	}
 	
 	#banner {
-		height: auto;
+		height: auto !important;
 		padding: 20px;
+		min-height: 200px !important;
+		background-size: cover !important;
 	}
 	
 	.menu {
 		width: 100%;
+		margin: 0;
+	}
+	
+	.menu ul {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	
+	.menu li {
+		display: block;
+		width: 100%;
+		margin: 0;
+		border-bottom: 1px solid #ccc;
 	}
 	
 	.menu a {
-		width: 100%;
+		display: block !important;
+		width: 100% !important;
+		padding: 15px 10px !important;
+		margin: 0 !important;
+		font-size: 16px !important;
+		text-align: center;
+		box-sizing: border-box;
+		-webkit-tap-highlight-color: rgba(172, 175, 44, 0.3);
+	}
+	
+	.menu a:hover, .menu a:active {
+		background-color: #acaf2c !important;
+		color: #fff !important;
 	}
 	
 	.profile-section {
@@ -324,5 +364,26 @@ blockquote ul li {
 	
 	.academic-links {
 		justify-content: center;
+		flex-wrap: wrap;
+	}
+	
+	.academic-link {
+		margin: 5px !important;
+		padding: 10px 15px !important;
+		font-size: 14px !important;
+	}
+	
+	/* Video embeds responsive */
+	iframe {
+		max-width: 100% !important;
+		height: auto !important;
+	}
+	
+	/* Touch-friendly links */
+	a {
+		min-height: 44px;
+		display: inline-block;
+		padding: 8px;
+		box-sizing: border-box;
 	}
 }
