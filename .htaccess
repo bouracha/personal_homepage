@@ -4,8 +4,8 @@ DirectoryIndex index.html index.htm
 # Enable URL rewriting for clean URLs
 RewriteEngine On
 
-# Redirect old CV.pdf direct access to homepage
-RewriteRule ^documents/CV\.pdf$ /~bouracha/ [R=301,L]
+# Redirect old CV.pdf direct access to homepage (DISABLED - allow CV access)
+# RewriteRule ^documents/CV\.pdf$ /~bouracha/ [R=301,L]
 
 # Don't rewrite PHP files - let them execute normally
 RewriteCond %{REQUEST_URI} !\.php$
